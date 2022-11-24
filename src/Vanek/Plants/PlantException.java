@@ -3,7 +3,7 @@ package Vanek.Plants;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlantException extends Exception{
+public class PlantException extends Exception {
     @SuppressWarnings("FieldMayBeFinal")
     private List<String> errors;
     //private List<String> errors = new ArrayList<>();

@@ -15,7 +15,7 @@ public class Plant {
         List<String> seznamChyb = new ArrayList<>();
         if (!isDateOk(planted, watering)) seznamChyb.add("Rostlinu nelze zalévat před zasazením - problém s datumy.");
         if (!isWateringOk(frequencyOfWatering)) seznamChyb.add("Rostlina se musí zalévat - záporná nebo nulová zálivka není povolena.");
-        if (seznamChyb.size() > 0) throw new PlantException("Chyba při tvorbě objektu rostliny:", seznamChyb);
+        if (seznamChyb.size() > 0) throw new PlantException("Chyba při tvorbě objektu rostliny:" , seznamChyb);
 
         this.name = name;
         this.notes = notes;
@@ -70,13 +70,15 @@ public class Plant {
 
     //Tyto pomocné metody bych ale asi dával s modifikátorem private (nebo protected, pokud bych plánoval používat dědičnost).
     public boolean isWateringOk(int frequencyOfWatering) {
-        if (frequencyOfWatering > 0) { return true; }
-        return false;
+        //if (frequencyOfWatering > 0) { return true; }
+        //return false;
+        return frequencyOfWatering > 0; //simple version of if
     }
 
     public boolean isDateOk(LocalDate planted , LocalDate watering) {
-        if (planted.isBefore(watering) || planted.isEqual(watering)) { return true; }
-        return false;
+        //if (planted.isBefore(watering) || planted.isEqual(watering)) { return true; }
+        //return false;
+        return planted.isBefore(watering) || planted.isEqual(watering); //simple version of if
     }
 
     public String getWateringInfo() {

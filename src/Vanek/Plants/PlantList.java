@@ -11,18 +11,18 @@ public class PlantList {
     @SuppressWarnings("FieldMayBeFinal")
     private List<Plant> listOfPlants = new ArrayList<>();
 
-    public void readFromFile(String file) throws DateTimeParseException, NumberFormatException, PlantException, FileNotFoundException{
-        String [] array;
+    public void readFromFile(String file) throws DateTimeParseException , NumberFormatException , PlantException , FileNotFoundException {
+        String [] pomocnePole;
         String separator = "\t";
         int radek = 0;
         List<String> seznamChyb = new ArrayList<>();
         try (Scanner sc = new Scanner(new BufferedReader(new FileReader(file)))) {
         //závorky hned za try znamenají "try with resources". Resource je objekt, který musí být uzavený, když program skončí.
-            while ( sc.hasNextLine()) {
+            while (sc.hasNextLine()) {
                 radek++;
                 try {
-                    array = sc.nextLine().split(separator);
-                    listOfPlants.add(new Plant(array[0] , array[1] , LocalDate.parse(array[4]) , LocalDate.parse(array[3]) , Integer.parseInt(array[2])));
+                    pomocnePole = sc.nextLine().split(separator);
+                    listOfPlants.add(new Plant(pomocnePole[0] , pomocnePole[1] , LocalDate.parse(pomocnePole[4]) , LocalDate.parse(pomocnePole[3]) , Integer.parseInt(pomocnePole[2])));
                 } catch (DateTimeParseException e) {
                     seznamChyb.add("Řádek "+radek+" chyba zápisu v datumu: "+e.getLocalizedMessage());
                 } catch (NumberFormatException e) {
@@ -66,11 +66,11 @@ public class PlantList {
 
     public List<Plant> getPlantList() {
         //return this.listOfPlants;                 //vrací samotný list, který pak může někdo přímo editovat
-        return new ArrayList<>(listOfPlants);       //vracé kopii listu
+        return new ArrayList<>(listOfPlants);       //vrací kopii listu
     }
 
-    //remove() může vyhodit nehlídanou výjimku, obecně programátor by měl IndexOutOfBoundsException předejít
-    //můžu jí zachytit hned tady anebo výš při volání metody
+    //.remove(int index) může vyhodit nehlídanou výjimku, obecně programátor by měl IndexOutOfBoundsException předejít
+    //můžu jí zachytit hned tady anebo výš při volání metody, když jí nezachytím tak program spadne
     //public void removePlantIndex(int index) throws IndexOutOfBoundsException{ //nemusím definovat protože výjimka není hlídaná
     public void removePlantIndex(int index){
         listOfPlants.remove(index);
