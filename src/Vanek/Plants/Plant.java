@@ -3,8 +3,9 @@ package Vanek.Plants;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public class Plant {
+public class Plant implements Comparable<Plant> {
     private String name;
     private String notes;
     private LocalDate planted;
@@ -64,24 +65,46 @@ public class Plant {
         this.planted = planted;
     }
 
+    public void setWatering(LocalDate watering) { this.watering = watering; }
+
     public void setFrequencyOfWatering(int frequencyOfWatering) {
         this.frequencyOfWatering = frequencyOfWatering;
     }
 
-    //Tyto pomocné metody bych ale asi dával s modifikátorem private (nebo protected, pokud bych plánoval používat dědičnost).
-    public boolean isWateringOk(int frequencyOfWatering) {
+    //Tyto pomocné metody jsou private protože se s nimi pracuje jen tady. V případě dědičnosti je už nechci vidět.
+    private boolean isWateringOk(int frequencyOfWatering) {
         //if (frequencyOfWatering > 0) { return true; }
         //return false;
-        return frequencyOfWatering > 0; //simple version of if
+        return frequencyOfWatering > 0; //simple version
     }
 
-    public boolean isDateOk(LocalDate planted , LocalDate watering) {
-        //if (planted.isBefore(watering) || planted.isEqual(watering)) { return true; }
-        //return false;
-        return planted.isBefore(watering) || planted.isEqual(watering); //simple version of if
+    private boolean isDateOk(LocalDate planted , LocalDate watering) {
+        return (planted.isBefore(watering) || planted.isEqual(watering));
     }
 
     public String getWateringInfo() {
         return getName()+" - poslední zálivka byla "+getWatering()+" a další by měla být "+getWatering().plusDays(getFrequencyOfWatering());
+    }
+
+    //metoda compareTo override defaultní metodu v Comparable<Plant> používanou Collections.sort(listOfPlants);
+    //Rozhraní Comparable může mít jen jednu metodu compareTo a pro její změnu je nutný tento zásah do třídy
+    //Pokud chci řadit podle víc krytérií tak je lepší implementovat interface Comparator
+    @Override
+    public int compareTo(Plant o) {
+        return this.name.compareTo(o.getName());
+    }
+
+    //equals a hashCode se používá pro přidávání do množiny
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Plant plant = (Plant) o;
+        return Objects.equals(planted, plant.planted);
+    }
+
+    @Override
+    public int hashCode() { //equals nestačí, musí tu být i hashCode
+        return Objects.hash(planted);
     }
 }
