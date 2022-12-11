@@ -50,10 +50,11 @@ public class PlantList{
         I was specifically talking about IOException, in that every other IO abstraction (Reader, Writer etc) declares that its methods throw IOException if something goes wrong - PrintWriter doesn't.
          */
         //try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) { //alternativa
-        try (PrintWriter writer = new PrintWriter(new FileWriter(file))) {
+        //try (PrintWriter writer = new PrintWriter(new FileWriter(file))) {
+        try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(file)))) {
             for (Plant tmp : listOfPlants) {
                 lineOfFile = tmp.getName()+separator+tmp.getNotes()+separator+tmp.getFrequencyOfWatering()+separator+tmp.getWatering()+separator+tmp.getPlanted();
-                //writer.write(lineOfFile); //alternativa
+                //writer.write(lineOfFile+"\n"); //alternativa s bufferedWriter potřebuje /n
                 writer.println(lineOfFile);
             }
         } catch (IOException e) {
@@ -105,6 +106,6 @@ public class PlantList{
 
     //tady používám třídu PlantListSortByDate která implementuje Comparator
     public void sortByLastWatering() {
-        Collections.sort(listOfPlants, new PlantListSortByDate());
+        Collections.sort(listOfPlants, new PlantListComparatorByDate());
     }
 }

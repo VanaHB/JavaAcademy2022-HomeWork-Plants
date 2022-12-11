@@ -71,6 +71,7 @@ public class Main {
         }
 
 //DOMÁCÍ ÚKOL ŠESTÉ LEKCE:
+        /*
         System.out.println("--- výchozí pořadí:");
         seznam2.getPlantList().forEach(tmp -> System.out.println(tmp.getName()));
         System.out.println("--- seřazeno Comparable podle jména:");
@@ -86,12 +87,17 @@ public class Main {
         Set<Plant> posledniMesic = seznam2.plantedLastMonth();
         posledniMesic.forEach(tmp -> System.out.println(tmp.getPlanted()+" "+tmp.getName()));
 
-/* test přidávání do množiny
-        Set<LocalDate> mnozina = new HashSet<>();
-        seznam2.getPlantList().forEach(Plant -> mnozina.add(Plant.getPlanted())); //do mnozina se přidají ukazatele na prvky ze seznamu2
-        //seznam2.removePlantIndex(2); //odsraněním prvku se seznamu v množitě zůstává
-        seznam2.getPlantIndex(0).setPlanted(LocalDate.of(1111,11,11));
 */
-        //System.out.println("");
+
+// test přidávání do množiny
+        /*
+        Set<String> mnozina = new HashSet<>();
+        seznam2.getPlantList().forEach(Plant -> mnozina.add(Plant.getNotes())); //do mnozina se přidají ukazatele na prvky ze seznamu2
+        //seznam2.removePlantIndex(2); //odsraněním prvku se seznamu v množitě zůstává
+        seznam2.getPlantIndex(0).setNotes("nový popis");
+
+        System.out.println("");
+
+         */
     }
 }
